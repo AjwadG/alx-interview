@@ -22,11 +22,12 @@ def validUTF8(data):
     prev = 0
     for number in data:
         n_bytes = binary(number)
-        if not prev and n_bytes == 1:
-            return False
         if prev == 0:
-            prev = n_bytes
-        elif prev and (n_bytes == 0 or n_bytes > 1) or n_bytes == -1:
+            if n_bytes == 1:
+                return False
+            else:
+                prev = n_bytes
+        elif n_bytes != 1:
             return False
         prev = prev - 1 if prev != 0 else prev
 
